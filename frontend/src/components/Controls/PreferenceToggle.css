@@ -1,0 +1,63 @@
+.preference-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.preference-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.preference-description {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.preference-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.preference-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.preference-option:hover:not(:disabled) {
+  border-color: var(--primary-color);
+  background-color: rgba(21, 128, 61, 0.05);
+}
+
+.preference-option.active {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.preference-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.preference-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.preference-label-text {
+  flex: 1;
+}

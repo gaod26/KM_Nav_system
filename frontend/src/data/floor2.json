@@ -1,0 +1,442 @@
+[
+  {
+    "from": "H210",
+    "to": "R253",
+    "distance": 237
+  },
+  {
+    "from": "R253",
+    "to": "H208",
+    "distance": 339
+  },
+  {
+    "from": "R253",
+    "to": "H207",
+    "distance": 328.2
+  },
+  {
+    "from": "R253",
+    "to": "R225",
+    "distance": 305.4
+  },
+  {
+    "from": "R253",
+    "to": "H211",
+    "distance": 147.8
+  },
+  {
+    "from": "H208",
+    "to": "O205",
+    "distance": 207.1
+  },
+  {
+    "from": "H208",
+    "to": "R201",
+    "distance": 181.9
+  },
+  {
+    "from": "H208",
+    "to": "R202",
+    "distance": 97.3
+  },
+  {
+    "from": "H208",
+    "to": "R203",
+    "distance": 222
+  },
+  {
+    "from": "H208",
+    "to": "H203",
+    "distance": 348.5
+  },
+  {
+    "from": "H203",
+    "to": "H204",
+    "distance": 305.8
+  },
+  {
+    "from": "H203",
+    "to": "R208",
+    "distance": 174.8
+  },
+  {
+    "from": "H203",
+    "to": "R209",
+    "distance": 140.6
+  },
+  {
+    "from": "H203",
+    "to": "R210",
+    "distance": 167.7
+  },
+  {
+    "from": "H203",
+    "to": "R211",
+    "distance": 233
+  },
+  {
+    "from": "H203",
+    "to": "H202",
+    "distance": 300
+  },
+  {
+    "from": "H203",
+    "to": "H206",
+    "distance": 261.1
+  },
+  {
+    "from": "H204",
+    "to": "O203",
+    "distance": 54
+  },
+  {
+    "from": "H204",
+    "to": "H205",
+    "distance": 99.5
+  },
+  {
+    "from": "H204",
+    "to": "R207",
+    "distance": 116.3
+  },
+  {
+    "from": "H205",
+    "to": "R204",
+    "distance": 137.1
+  },
+  {
+    "from": "H205",
+    "to": "R204A",
+    "distance": 159.4
+  },
+  {
+    "from": "H205",
+    "to": "R204B",
+    "distance": 106.9
+  },
+  {
+    "from": "H205",
+    "to": "R205",
+    "distance": 154.2
+  },
+  {
+    "from": "H205",
+    "to": "R206",
+    "distance": 89.9
+  },
+  {
+    "from": "H202",
+    "to": "R212",
+    "distance": 78.6
+  },
+  {
+    "from": "H202",
+    "to": "H201",
+    "distance": 109
+  },
+  {
+    "from": "H202",
+    "to": "R217",
+    "distance": 83.2
+  },
+  {
+    "from": "H202",
+    "to": "R218",
+    "distance": 90.5
+  },
+  {
+    "from": "H201",
+    "to": "R213",
+    "distance": 136.2
+  },
+  {
+    "from": "H201",
+    "to": "R214",
+    "distance": 135.1
+  },
+  {
+    "from": "H201",
+    "to": "R215",
+    "distance": 78.7
+  },
+  {
+    "from": "H201",
+    "to": "R216",
+    "distance": 142.8
+  },
+  {
+    "from": "H206",
+    "to": "S201",
+    "distance": 77.5
+  },
+  {
+    "from": "H206",
+    "to": "O202",
+    "distance": 149.8
+  },
+  {
+    "from": "H206",
+    "to": "M201",
+    "distance": 96.5
+  },
+  {
+    "from": "H206",
+    "to": "W201",
+    "distance": 153.6
+  },
+  {
+    "from": "O202",
+    "to": "O201",
+    "distance": 84
+  },
+  {
+    "from": "H207",
+    "to": "O204",
+    "distance": 198.7
+  },
+  {
+    "from": "H207",
+    "to": "E201",
+    "distance": 132.6
+  },
+  {
+    "from": "H207",
+    "to": "S202",
+    "distance": 110.4
+  },
+  {
+    "from": "R225",
+    "to": "H209",
+    "distance": 121.9
+  },
+  {
+    "from": "H209",
+    "to": "R224",
+    "distance": 102.9
+  },
+  {
+    "from": "H209",
+    "to": "R222",
+    "distance": 114.2
+  },
+  {
+    "from": "H209",
+    "to": "R223",
+    "distance": 139.1
+  },
+  {
+    "from": "R222",
+    "to": "R222A",
+    "distance": 93.9
+  },
+  {
+    "from": "H211",
+    "to": "H213",
+    "distance": 238.3
+  },
+  {
+    "from": "H211",
+    "to": "R252B",
+    "distance": 95.5
+  },
+  {
+    "from": "H211",
+    "to": "R252A",
+    "distance": 95.9
+  },
+  {
+    "from": "H211",
+    "to": "H214",
+    "distance": 238.3
+  },
+  {
+    "from": "H213",
+    "to": "H212",
+    "distance": 50.4
+  },
+  {
+    "from": "H213",
+    "to": "H216",
+    "distance": 225.4
+  },
+  {
+    "from": "H213",
+    "to": "R229",
+    "distance": 171.4
+  },
+  {
+    "from": "H212",
+    "to": "R226",
+    "distance": 129.4
+  },
+  {
+    "from": "H212",
+    "to": "R227",
+    "distance": 72
+  },
+  {
+    "from": "H212",
+    "to": "R228",
+    "distance": 122.6
+  },
+  {
+    "from": "H214",
+    "to": "R229",
+    "distance": 171.4
+  },
+  {
+    "from": "H214",
+    "to": "H215",
+    "distance": 49.4
+  },
+  {
+    "from": "H214",
+    "to": "H216",
+    "distance": 252
+  },
+  {
+    "from": "H215",
+    "to": "R249",
+    "distance": 121.7
+  },
+  {
+    "from": "H215",
+    "to": "R250",
+    "distance": 71.5
+  },
+  {
+    "from": "H215",
+    "to": "R251",
+    "distance": 129.8
+  },
+  {
+    "from": "H216",
+    "to": "R229",
+    "distance": 132.9
+  },
+  {
+    "from": "H216",
+    "to": "S203",
+    "distance": 271.3
+  },
+  {
+    "from": "H216",
+    "to": "H217",
+    "distance": 116.9
+  },
+  {
+    "from": "H216",
+    "to": "O206",
+    "distance": 232
+  },
+  {
+    "from": "H216",
+    "to": "R246",
+    "distance": 178.7
+  },
+  {
+    "from": "H217",
+    "to": "H218",
+    "distance": 139.8
+  },
+  {
+    "from": "H217",
+    "to": "E202",
+    "distance": 99.7
+  },
+  {
+    "from": "H218",
+    "to": "W202",
+    "distance": 204.8
+  },
+  {
+    "from": "H218",
+    "to": "M202",
+    "distance": 280
+  },
+  {
+    "from": "H218",
+    "to": "S203",
+    "distance": 368.3
+  },
+  {
+    "from": "H218",
+    "to": "R233",
+    "distance": 427
+  },
+  {
+    "from": "H218",
+    "to": "R239",
+    "distance": 355.3
+  },
+  {
+    "from": "H218",
+    "to": "R240",
+    "distance": 269.9
+  },
+  {
+    "from": "H218",
+    "to": "R241",
+    "distance": 151.8
+  },
+  {
+    "from": "H218",
+    "to": "R242",
+    "distance": 171.9
+  },
+  {
+    "from": "H218",
+    "to": "R243",
+    "distance": 246.9
+  },
+  {
+    "from": "H218",
+    "to": "R244",
+    "distance": 376.4
+  },
+  {
+    "from": "H218",
+    "to": "H219",
+    "distance": 418
+  },
+  {
+    "from": "H218",
+    "to": "R245",
+    "distance": 376.1
+  },
+  {
+    "from": "H218",
+    "to": "S204",
+    "distance": 264.7
+  },
+  {
+    "from": "H218",
+    "to": "O207",
+    "distance": 138.1
+  },
+  {
+    "from": "R233",
+    "to": "R234",
+    "distance": 139
+  },
+  {
+    "from": "R233",
+    "to": "R235",
+    "distance": 157.3
+  },
+  {
+    "from": "R233",
+    "to": "R236",
+    "distance": 98
+  },
+  {
+    "from": "R233",
+    "to": "R237",
+    "distance": 157.7
+  },
+  {
+    "from": "R233",
+    "to": "R238",
+    "distance": 140
+  }
+]

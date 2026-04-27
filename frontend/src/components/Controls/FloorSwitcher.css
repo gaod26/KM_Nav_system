@@ -1,0 +1,92 @@
+.floor-switcher {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow);
+  z-index: 10;
+}
+
+.floor-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.multi-floor-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #8b5cf6;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.floor-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.floor-tab {
+  min-width: 3rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.floor-tab:hover:not(:disabled) {
+  background-color: var(--background);
+  border-color: var(--primary-color);
+}
+
+.floor-tab.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.floor-tab:disabled {
+  cursor: default;
+}
+
+.floor-tab.in-route:not(.active) {
+  border-color: var(--secondary-color);
+  background-color: rgba(251, 191, 36, 0.1);
+}
+
+.route-indicator {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  color: var(--secondary-color);
+  font-size: 0.75rem;
+}
+
+.floor-tab.active .route-indicator {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .floor-switcher {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

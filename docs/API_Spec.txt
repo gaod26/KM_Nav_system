@@ -1,0 +1,251 @@
+Kirby-Manchester Indoor Navigation API Spec
+Base URL: http://localhost:8000
+KM Nav Team: Dan Gao, Gabi Yankovski, Elliott Lowman
+
+Overview
+This document defines the REST API contract between the frontend and backend of the Kirby-Manchester Indoor Navigation System. The frontend sends requests to these endpoints, and the backend returns JSON responses.
+The backend computes shortest paths using Dijkstra's algorithm on a weighted graph model of the building. Users can specify stair or elevator preferences for multi-floor routes. Both visual map paths and text-based navigation instructions are provided.
+Currently floor 1 data is available. Other floors will be added incrementally.
+The current frontend integration scope covers Endpoints 1–5 only. Future endpoints (Appendix E) are not part of the current sprint.
+
+Error response format
+All endpoints return errors in a consistent JSON format:
+{ "detail": "Human-readable error message" }
+Common status codes:
+400 Bad Request — invalid or missing parameters (e.g. unsupported preference value, missing required field)
+404 Not Found — the requested resource does not exist (e.g. unknown node ID, no path found, floor has no data)
+422 Unprocessable Entity — request body is malformed JSON or has wrong field types
+
+Endpoint 1: Generate route (core endpoint)
+Method
+POST
+URL
+/route
+Purpose
+Calculate shortest path between two nodes with optional stair/elevator preference
+
+Request body:
+{
+  "start": "R101",
+  "destination": "R128",
+  "preference": "none"
+}
+start (required) — starting node ID
+destination (required) — target node ID
+preference (optional, default: "none") — routing preference for floor transitions:
+    "none" = no preference (shortest path regardless of stairs or elevator)
+    "stairs" = prefer stairs when changing floors
+    "elevator" = prefer elevator when changing floors
+
+Response (same floor):
+{
+  "floors": {
+    "1":["R101","H103","J101","H106","H108","H109","J102","H111","R128A","R128"]
+  },
+  "instructions": [
+    "Start at Room 101",
+    "Walk through hallway H103",
+    "Continue past Junction J101",
+    "Follow hallway H106",
+    "Continue through H108, H109",
+    "Pass Junction J102",
+    "Continue through hallway H111",
+    "Pass Room 128A",
+    "Arrive at Room 128"
+  ]
+}
+floors — path grouped by floor. Each key is a floor number, each value is an ordered array of node IDs. The frontend draws lines connecting these nodes in sequence on the corresponding floor map.
+instructions — text-based step-by-step directions. The frontend displays these alongside the visual map route.
+
+Response (cross-floor with elevator preference — illustrative example only):
+{
+  "floors": {
+    "1": ["R101","H103","J101","H106","E101"],
+    "2": ["E201","H203","R205"]
+  },
+  "instructions": [
+    "Start at Room 101",
+    "Walk through hallway toward Elevator 1",
+    "Take elevator to Floor 2",
+    "Walk through hallway H203",
+    "Arrive at Room 205"
+  ]
+}
+This cross-floor example uses placeholder node IDs since only floor 1 data exists currently. The actual node IDs will come from the Figma floor plans once other floors are added.
+When preference is "elevator", the route uses elevator nodes instead of stairs. The last node on one floor and the first node on the next floor represent the same elevator/stair on different floors.
+
+Errors:
+404: { "detail": "No path found from R101 to R999" }
+400: { "detail": "Invalid preference: must be one of none, stairs, elevator" }
+404: { "detail": "Node R999 does not exist" }
+
+Endpoint 2: List available floors
+Method
+GET
+URL
+/floors
+Purpose
+Get the list of floors that have map data
+
+Request: no parameters needed
+
+Response:
+[1]
+After other floors are added, the response will include all available floor numbers, e.g. [1, 2, 3, 4, 5, 6].
+The frontend uses this list to render floor selector buttons.
+This endpoint always returns 200. If no floors are loaded, it returns an empty array: []
+
+
+Endpoint 3: Get floor map data
+Method
+GET
+URL
+/floors/{floor}   e.g. /floors/1
+Purpose
+Get all nodes and edges for a specific floor to render the map
+
+Response:
+{
+  "floor": 1,
+  "nodes": [
+    { "node_id": "R101", "label": "Room 101",
+      "type": "room", "floor": 1,
+      "x": -771.5, "y": -414.5 },
+    ... (57 nodes total)
+  ],
+  "edges": [
+    { "from_node": "H101", "to_node": "J101",
+      "distance": 144 },
+    ... (59 edges total)
+  ]
+}
+nodes — every room, hallway, stairwell, elevator, restroom, etc. with coordinates. The frontend plots each node at (x, y) on the map canvas.
+edges — which nodes are directly connected by walkable paths. All edges are bidirectional (undirected). The from_node/to_node ordering does not imply direction; if H101→J101 exists, J101→H101 is also walkable. The frontend can use edges to draw hallway lines (optional).
+
+This endpoint is called once per floor when the user switches floor views.
+
+Errors:
+404: { "detail": "Floor 9 has no data" }
+
+Endpoint 4: Search rooms and facilities
+Method
+GET
+URL
+/search?q={keyword}&floor={floor}
+Purpose
+Search rooms and facilities by name or ID
+
+Parameters:
+q (required) — search keyword, e.g. "101" or "elevator"
+floor (optional) — filter results to a specific floor number
+
+Search behavior:
+The search is case-insensitive and matches partial strings. It searches both node_id and label fields. For example, q=101 matches "R101" (node_id) and "Room 101" (label). If no results are found, returns an empty array [].
+
+Example: GET /search?q=elevator
+Response:
+[
+  { "node_id": "E101", "label": "Elevator 1 Floor 1",
+    "type": "elevator", "floor": 1 },
+  { "node_id": "E102", "label": "Elevator 2 Floor 1",
+    "type": "elevator", "floor": 1 }
+]
+The frontend displays search results in a dropdown list. When the user selects a result, its node_id can be used as start or destination in the /route endpoint.
+
+Errors:
+400: { "detail": "Missing required parameter: q" }
+
+Endpoint 5: Find nearest facility
+Method
+GET
+URL
+/nearest?from_node={id}&type={type}
+Purpose
+Find the closest facility of a given type from a starting node
+
+Parameters:
+from_node (required) — the user's current node ID
+type (required) — facility type to search for (see Node Types table in Appendix A)
+
+Example: GET /nearest?from_node=R101&type=elevator
+Response:
+{
+  "target_node": "E101",
+  "target_label": "Elevator 1 Floor 1",
+  "total_distance": 1062.8,
+  "floors": {
+    "1": ["R101","H103","J101","H106","E101"]
+  },
+  "instructions": [
+    "Start at Room 101",
+    "Walk through hallway H103",
+    "Continue past Junction J101",
+    "Follow hallway H106",
+    "Arrive at Elevator 1"
+  ]
+}
+target_node — the nearest facility found. target_label — its display name. total_distance — total path length.
+floors and instructions — same format as /route endpoint.
+
+Errors:
+404: { "detail": "Node R999 does not exist" }
+404: { "detail": "No facilities of type elevator found" }
+400: { "detail": "Invalid type: must be one of stairs, elevator, mens_restroom, womens_restroom" }
+
+Appendix A: Node types
+These are the possible values for the type field in node data and the type parameter in /nearest.
+Type value
+Description
+Example IDs
+room
+Rooms / classrooms / offices
+R101, R128A
+hallway
+Hallway waypoints
+H101 - H113
+junction
+Hallway intersections
+J101, J102
+stairs
+Stairwells
+S101 - S104
+elevator
+Elevators
+E101, E102
+mens_restroom
+Men's restroom
+M101, M102
+womens_restroom
+Women's restroom
+W101, W102
+other
+Unlabeled / utility spaces
+O101 - O104
+
+Note: Type values use underscores with no spaces or special characters for reliable use in URL parameters and code.
+
+Appendix B: Distance and coordinate units
+Distance — All distance values (edge distance and total_distance) are in Figma coordinate units (pixels at 1x zoom). These are proportional to real-world walking distance but are not calibrated to feet or meters. If the frontend needs to display human-readable distances (e.g. "200 ft"), a conversion factor will need to be determined by measuring a known real-world distance against the Figma pixel distance.
+
+Coordinates — All (x, y) coordinates come from Figma. x increases rightward, y increases downward. The origin (0, 0) is near the center of the building. Negative values are normal and expected — for example, x: -771.5 simply means the node is to the left of center.
+
+Appendix C: Floor 1 data summary
+57 nodes: 28 rooms, 13 hallways, 2 junctions, 4 stairwells, 2 elevators, 2 men's restrooms, 2 women's restrooms, 4 other.
+59 undirected (bidirectional) edges.
+
+Appendix D: Frontend integration guide
+1. On page load — Call GET /floors to get available floors, then GET /floors/1 to get floor 1 map data. Render nodes at their (x, y) coordinates on an SVG canvas.
+2. User searches for a room — As the user types in the search box, call GET /search?q=... and show matching results in a dropdown. When the user selects a result, use its node_id as start or destination.
+3. User generates a route — Call POST /route with start, destination, and optional preference. Draw the path by connecting node IDs in order on the map. Display the instructions array as text directions in a side panel.
+4. Multi-floor route — If the response contains multiple floor keys, show the current floor segment. When the user switches floors, display the corresponding segment. Highlight stairwell/elevator transition points.
+5. Quick facility finder — Provide buttons like "Nearest elevator" and "Nearest restroom". On click, call GET /nearest and display the result the same way as a regular route.
+
+Appendix E: Future endpoints (not yet implemented)
+The following endpoints are planned for a future sprint. They require a database and user authentication system. 
+
+POST /auth/register — Create a new user account.
+POST /auth/login — Log in and receive an authentication token.
+POST /routes/save — Save a generated route to the user's history (requires login).
+GET /routes/history — Retrieve the user's saved routes (requires login).
+
+These features are optional. The core navigation system is fully functional without user authentication.
