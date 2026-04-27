@@ -6,7 +6,10 @@ build/
 .env.local
 .DS_Store
 *.log
-data/*.sqlite
-backend/data/*.sqlite
+data/
+backend/data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
 .vscode/
 .idea/
