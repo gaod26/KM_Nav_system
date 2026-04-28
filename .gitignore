@@ -6,7 +6,6 @@ build/
 .env.local
 .DS_Store
 *.log
-data/
 backend/data/
 *.sqlite
 *.sqlite-shm
