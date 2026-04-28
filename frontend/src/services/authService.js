@@ -23,10 +23,11 @@ export const isAuthenticated = () => {
 export const register = async (username, password) => {
   try {
     const response = await api.post('/auth/register', { username, password })
-    const { access_token, username: user } = response.data
+    const token = response.data.token
+    const user = response.data.user.username
     
     // Store token and user info
-    localStorage.setItem(TOKEN_KEY, access_token)
+    localStorage.setItem(TOKEN_KEY, token)
     localStorage.setItem(USER_KEY, JSON.stringify({ username: user }))
     
     return { success: true, user: { username: user } }
@@ -40,10 +41,11 @@ export const register = async (username, password) => {
 export const login = async (username, password) => {
   try {
     const response = await api.post('/auth/login', { username, password })
-    const { access_token, username: user } = response.data
+    const token = response.data.token
+    const user = response.data.user.username
     
     // Store token and user info
-    localStorage.setItem(TOKEN_KEY, access_token)
+    localStorage.setItem(TOKEN_KEY, token)
     localStorage.setItem(USER_KEY, JSON.stringify({ username: user }))
     
     return { success: true, user: { username: user } }
