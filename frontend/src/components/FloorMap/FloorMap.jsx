@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { getNodeType, isEdgeInRoute } from '../../utils/graphUtils'
 import FloorSwitcher from '../Controls/FloorSwitcher'
 import FloorDiagram from './FloorDiagram'
@@ -8,6 +8,7 @@ import floor1Data from '../../data/floor1.json'
 import floor2Data from '../../data/floor2.json'
 import floor3Data from '../../data/floor3.json'
 import nodePositions from '../../data/nodePositions.json'
+import combinedNodesRaw from '../../data/combined_nodes.json'
 import './FloorMap.css'
 
 function FloorMap({ floor, onFloorChange, routeData, startLocation, destination, onNodeClick }) {
@@ -17,6 +18,22 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
   const [panStart, setPanStart] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const svgRef = useRef(null)
+
+  const nodeTypeMap = useMemo(() => {
+    const map = {}
+    for (const n of combinedNodesRaw) {
+      map[n.node_id] = n.type
+    }
+    return map
+  }, [])
+
+  const nodeFloorMap = useMemo(() => {
+    const map = {}
+    for (const n of combinedNodesRaw) {
+      map[n.node_id] = n.floor
+    }
+    return map
+  }, [])
 
   const mapWidth = 1700
   const mapHeight = 900
@@ -124,6 +141,24 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
     return 8
   }
 
+  const getNodeEmoji = (nodeId) => {
+    if (nodeId === startLocation) return "🏁"
+    if (nodeId === destination) return "📍"
+    const type = nodeTypeMap[nodeId]
+    const emojiMap = {
+      room: "🏢",
+      mens_restroom: "🚹",
+      womens_restroom: "🚺",
+      all_gender_restroom: "🚻",
+      stairs: "🚶‍♂️",
+      elevator: "🛗",
+      hallway: "↔️",
+      junction: "🔀",
+      other: "📌"
+    }
+    return emojiMap[type] || "📌"
+  }
+
   const routePath = routeData?.path || []
   
   // Convert floors object to array of floor numbers
@@ -142,28 +177,12 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
   }
   const currentFloorData = floorDataMap[floor] || floor1Data
 
-  // Filter nodes to only show nodes from the current floor
+  // Filter nodes to only show nodes from the current floor.
+  // Uses the authoritative floor field from combined_nodes.json via nodeFloorMap.
+  // This replaces the previous regex-based approach which incorrectly matched
+  // basement nodes (e.g. RB01A) on the floor 0 view.
   const currentFloorNodes = Object.entries(positions).filter(([nodeId]) => {
-    // Check if node belongs to current floor
-    // Basement nodes have 'B' in ID (RB01, HB01, etc.)
-    if (floor === 'B') {
-      return nodeId.includes('B0') || nodeId.match(/^[A-Z]+B\d/)
-    }
-    
-    // Floor 0 nodes have no floor number or explicit 0 (R001, H001, S001, etc.)
-    if (floor === 0) {
-      const hasFloorZero = nodeId.match(/^([A-Z]+)0+(\d+)/)
-      const hasNoFloor = nodeId.match(/^([A-Z])[A-Z]*\d{1,2}$/) && !nodeId.match(/[1-9]\d*/)
-      return hasFloorZero || (hasNoFloor && !nodeId.includes('B'))
-    }
-    
-    // Floor 1, 2, and 3 nodes have floor number in ID (R101, H201, R301, etc.)
-    const floorPrefix = nodeId.match(/^([A-Z]+)(\d)/)
-    if (floorPrefix) {
-      const nodeFloor = parseInt(floorPrefix[2])
-      return nodeFloor === floor
-    }
-    return floor === 1 // Default to floor 1 for nodes without clear floor
+    return nodeFloorMap[nodeId] === floor
   })
   
   // Highlight stairs/elevators that are transition points in multi-floor routes
@@ -267,41 +286,41 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
         {/* Draw nodes */}
         <g className="nodes">
           {currentFloorNodes.map(([nodeId, pos]) => {
-            const isInCurrentFloorRoute = currentFloorPath.includes(nodeId)
             const isTransition = isTransitionNode(nodeId)
             
             return (
               <g key={nodeId} className="node-group" transform={`translate(${pos.x}, ${pos.y})`}>
+                {/* Invisible larger click hitbox */}
                 <circle
-                  r={getNodeRadius(nodeId)}
-                  fill={getNodeColor(nodeId)}
-                  stroke={isInCurrentFloorRoute ? '#15803d' : 'white'}
-                  strokeWidth={isInCurrentFloorRoute ? 3 : 2}
-                  className="node"
+                  r={20}
+                  fill="transparent"
                   onClick={() => handleNodeClick(nodeId)}
                   style={{ cursor: 'pointer' }}
                 />
+                {/* Emoji icon */}
+                <text
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fontSize="22"
+                  opacity="0.7"
+                  onClick={() => handleNodeClick(nodeId)}
+                  style={{ cursor: 'pointer', userSelect: 'none' }}
+                  className="node-emoji"
+                >
+                  {getNodeEmoji(nodeId)}
+                </text>
+                {/* Transition indicator */}
                 {isTransition && (
                   <circle
-                    r={getNodeRadius(nodeId) + 5}
+                    r={18}
                     fill="none"
                     stroke="#8b5cf6"
                     strokeWidth="2"
                     strokeDasharray="4,4"
                     className="transition-indicator"
+                    pointerEvents="none"
                   />
                 )}
-                <text
-                  y="-15"
-                  textAnchor="middle"
-                  fontSize="11"
-                  fill="#1f2937"
-                  fontWeight="500"
-                  className="node-label"
-                  pointerEvents="none"
-                >
-                  {nodeId}
-                </text>
               </g>
             )
           })}
@@ -309,22 +328,12 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
       </svg>
 
       <div className="map-legend">
-        <div className="legend-item">
-          <div className="legend-color" style={{ backgroundColor: '#10b981' }}></div>
-          <span>Start</span>
-        </div>
-        <div className="legend-item">
-          <div className="legend-color" style={{ backgroundColor: '#ef4444' }}></div>
-          <span>Destination</span>
-        </div>
-        <div className="legend-item">
-          <div className="legend-color" style={{ backgroundColor: '#3b82f6' }}></div>
-          <span>Room</span>
-        </div>
-        <div className="legend-item">
-          <div className="legend-color" style={{ backgroundColor: '#f59e0b' }}></div>
-          <span>Stairs/Elevator</span>
-        </div>
+        <div className="legend-item"><span className="legend-emoji">🏁</span> Start</div>
+        <div className="legend-item"><span className="legend-emoji">📍</span> Destination</div>
+        <div className="legend-item"><span className="legend-emoji">🏢</span> Room</div>
+        <div className="legend-item"><span className="legend-emoji">🚻</span> Restroom</div>
+        <div className="legend-item"><span className="legend-emoji">🚶‍♂️</span> Stairs</div>
+        <div className="legend-item"><span className="legend-emoji">🛗</span> Elevator</div>
       </div>
     </div>
   )

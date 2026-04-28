@@ -21,6 +21,7 @@ function FloorDiagram({ floor = 1 }) {
         width="1700"
         height="900"
         preserveAspectRatio="none"
+        opacity="0.85"
       />
     </g>
   )
