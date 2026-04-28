@@ -150,7 +150,7 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
       mens_restroom: "🚹",
       womens_restroom: "🚺",
       all_gender_restroom: "🚻",
-      stairs: "🚶‍♂️",
+      stairs: "🪜",
       elevator: "🛗",
       hallway: "↔️",
       junction: "🔀",
@@ -266,6 +266,10 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
             if (!fromPos || !toPos) return null
 
             const isInRoute = isEdgeInRoute(edge.from, edge.to, currentFloorPath)
+            const hasActiveRoute = routePath.length > 0
+
+            // Hide non-route edges when no route is active
+            if (!isInRoute && !hasActiveRoute) return null
 
             return (
               <line
@@ -276,7 +280,7 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
                 y2={toPos.y}
                 stroke={isInRoute ? '#15803d' : '#cbd5e1'}
                 strokeWidth={isInRoute ? 4 : 2}
-                strokeOpacity={isInRoute ? 1 : 0.5}
+                strokeOpacity={isInRoute ? 1 : 0.1}
                 className={isInRoute ? 'route-edge' : ''}
               />
             )
@@ -301,7 +305,7 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
                 <text
                   textAnchor="middle"
                   dominantBaseline="central"
-                  fontSize="22"
+                  fontSize="26"
                   opacity="0.7"
                   onClick={() => handleNodeClick(nodeId)}
                   style={{ cursor: 'pointer', userSelect: 'none' }}
@@ -331,9 +335,14 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
         <div className="legend-item"><span className="legend-emoji">🏁</span> Start</div>
         <div className="legend-item"><span className="legend-emoji">📍</span> Destination</div>
         <div className="legend-item"><span className="legend-emoji">🏢</span> Room</div>
-        <div className="legend-item"><span className="legend-emoji">🚻</span> Restroom</div>
-        <div className="legend-item"><span className="legend-emoji">🚶‍♂️</span> Stairs</div>
+        <div className="legend-item"><span className="legend-emoji">🚹</span> Mens Restroom</div>
+        <div className="legend-item"><span className="legend-emoji">🚺</span> Womens Restroom</div>
+        <div className="legend-item"><span className="legend-emoji">🚻</span> All-Gender Restroom</div>
+        <div className="legend-item"><span className="legend-emoji">🪜</span> Stairs</div>
         <div className="legend-item"><span className="legend-emoji">🛗</span> Elevator</div>
+        <div className="legend-item"><span className="legend-emoji">↔️</span> Hallway</div>
+        <div className="legend-item"><span className="legend-emoji">🔀</span> Junction</div>
+        <div className="legend-item"><span className="legend-emoji">📌</span> Other</div>
       </div>
     </div>
   )

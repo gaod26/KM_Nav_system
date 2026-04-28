@@ -94,9 +94,9 @@
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  gap: 0.4rem 0.75rem;
   z-index: 10;
 }
 

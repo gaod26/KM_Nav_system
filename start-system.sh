@@ -48,93 +48,42 @@ if check_port 3000; then
 fi
 echo ""
 
-# Menu
-echo "What would you like to do?"
-echo "1) Start Backend only (port 8000)"
-echo "2) Start Frontend only (port 3000)"
-echo "3) Start Both (recommended for testing)"
-echo "4) Install Dependencies"
-echo "5) Exit"
 echo ""
-read -p "Enter your choice (1-5): " choice
+echo -e "${GREEN}Starting Both Servers...${NC}"
+echo ""
+echo "Backend: http://localhost:8000"
+echo "Frontend: http://localhost:3000"
+echo ""
+echo "Opening frontend in browser in 3 seconds..."
+echo "Press Ctrl+C to stop both servers"
+echo ""
 
-case $choice in
-    1)
-        echo ""
-        echo -e "${GREEN}Starting Backend Server...${NC}"
-        echo "Location: http://localhost:8000"
-        echo "Press Ctrl+C to stop"
-        echo ""
-        cd backend && node src/server.js
-        ;;
-    2)
-        echo ""
-        echo -e "${GREEN}Starting Frontend Server...${NC}"
-        echo "Location: http://localhost:3000"
-        echo "Press Ctrl+C to stop"
-        echo ""
-        cd frontend && npm run dev
-        ;;
-    3)
-        echo ""
-        echo -e "${GREEN}Starting Both Servers...${NC}"
-        echo ""
-        echo "Backend: http://localhost:8000"
-        echo "Frontend: http://localhost:3000"
-        echo ""
-        echo "Opening frontend in browser in 3 seconds..."
-        echo "Press Ctrl+C to stop both servers"
-        echo ""
-        
-        # Start backend in background
-        (cd backend && node src/server.js) &
-        BACKEND_PID=$!
-        
-        # Wait a moment for backend to start
-        sleep 2
-        
-        # Start frontend in background
-        (cd frontend && npm run dev) &
-        FRONTEND_PID=$!
-        
-        # Wait a moment for frontend to start
-        sleep 3
-        
-        # Open browser (macOS)
-        if command -v open &> /dev/null; then
-            open http://localhost:3000
-        fi
-        
-        # Wait for user interrupt
-        echo ""
-        echo -e "${GREEN}✓ Both servers are running${NC}"
-        echo "Press Ctrl+C to stop both servers"
-        
-        # Trap Ctrl+C to kill both processes
-        trap "echo ''; echo 'Stopping servers...'; kill $BACKEND_PID $FRONTEND_PID 2>/dev/null; exit" INT
-        
-        # Wait indefinitely
-        wait
-        ;;
-    4)
-        echo ""
-        echo -e "${GREEN}Installing Dependencies...${NC}"
-        echo ""
-        echo "Installing backend dependencies..."
-        (cd backend && npm install)
-        echo ""
-        echo "Installing frontend dependencies..."
-        (cd frontend && npm install)
-        echo ""
-        echo -e "${GREEN}✓ Dependencies installed${NC}"
-        echo "Run this script again to start the servers"
-        ;;
-    5)
-        echo "Goodbye!"
-        exit 0
-        ;;
-    *)
-        echo -e "${RED}Invalid choice${NC}"
-        exit 1
-        ;;
-esac
+# Start backend in background
+(cd backend && node src/server.js) &
+BACKEND_PID=$!
+
+# Wait a moment for backend to start
+sleep 2
+
+# Start frontend in background
+(cd frontend && npm run dev) &
+FRONTEND_PID=$!
+
+# Wait a moment for frontend to start
+sleep 3
+
+# Open browser (macOS)
+if command -v open &> /dev/null; then
+    open http://localhost:3000
+fi
+
+# Wait for user interrupt
+echo ""
+echo -e "${GREEN}✓ Both servers are running${NC}"
+echo "Press Ctrl+C to stop both servers"
+
+# Trap Ctrl+C to kill both processes
+trap "echo ''; echo 'Stopping servers...'; kill $BACKEND_PID $FRONTEND_PID 2>/dev/null; exit" INT
+
+# Wait indefinitely
+wait
