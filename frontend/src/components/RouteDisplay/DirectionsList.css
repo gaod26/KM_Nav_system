@@ -49,24 +49,51 @@
   color: #1f2937;
 }
 
-.directions-close {
-  background-color: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 0.25rem;
-  width: 2rem;
-  height: 2rem;
+.directions-controls {
   display: flex;
+  flex-direction: row;
+  gap: 8px;
   align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  font-size: 1rem;
   flex-shrink: 0;
 }
 
-.directions-close:hover {
-  background-color: var(--error-color);
-  border-color: var(--error-color);
-  color: white;
+.directions-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.15s ease;
+  position: relative;
+}
+
+.directions-btn:hover {
+  filter: brightness(0.9);
+}
+
+.directions-btn-close {
+  background-color: #ff5f57;
+}
+
+.directions-btn-toggle {
+  background-color: #28c940;
+}
+
+.directions-btn-icon {
+  opacity: 0;
+  font-size: 18px;
+  color: #1a1a1a;
+  line-height: 1;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+}
+
+.directions-btn:hover .directions-btn-icon {
+  opacity: 1;
 }
 
 .directions-list {

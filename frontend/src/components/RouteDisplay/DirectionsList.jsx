@@ -1,6 +1,14 @@
+import { useState, useEffect } from 'react'
 import './DirectionsList.css'
 
 function DirectionsList({ directions = [], distance, estimatedTime, onClose }) {
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
+  // Reset to expanded whenever a new route is generated
+  useEffect(() => {
+    setIsCollapsed(false)
+  }, [directions])
+
   if (!directions || directions.length === 0) {
     return null
   }
@@ -39,32 +47,43 @@ function DirectionsList({ directions = [], distance, estimatedTime, onClose }) {
             )}
           </div>
         </div>
-        <button
-          className="directions-close"
-          onClick={onClose}
-          aria-label="Close directions"
-        >
-          ✕
-        </button>
+        <div className="directions-controls">
+          <button
+            className="directions-btn directions-btn-close"
+            onClick={onClose}
+            aria-label="Close directions"
+          >
+            <span className="directions-btn-icon">✕</span>
+          </button>
+          <button
+            className="directions-btn directions-btn-toggle"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            aria-label={isCollapsed ? 'Expand directions' : 'Collapse directions'}
+          >
+            <span className="directions-btn-icon">⤢</span>
+          </button>
+        </div>
       </div>
 
-      <ol className="directions-list">
-        {directions.map((direction, index) => {
-          const isTransition = isFloorTransition(direction)
-          return (
-            <li 
-              key={index} 
-              className={`direction-step ${isTransition ? 'floor-transition' : ''}`}
-            >
-              <span className="step-number">{index + 1}</span>
-              <span className="step-text">
-                {isTransition && <span className="transition-icon">🔄 </span>}
-                {direction}
-              </span>
-            </li>
-          )
-        })}
-      </ol>
+      {!isCollapsed && (
+        <ol className="directions-list">
+          {directions.map((direction, index) => {
+            const isTransition = isFloorTransition(direction)
+            return (
+              <li 
+                key={index} 
+                className={`direction-step ${isTransition ? 'floor-transition' : ''}`}
+              >
+                <span className="step-number">{index + 1}</span>
+                <span className="step-text">
+                  {isTransition && <span className="transition-icon">🔄 </span>}
+                  {direction}
+                </span>
+              </li>
+            )
+          })}
+        </ol>
+      )}
     </div>
   )
 }

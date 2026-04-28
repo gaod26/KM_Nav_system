@@ -253,6 +253,13 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
           >
             <polygon points="0 0, 10 3, 0 6" fill="#15803d" />
           </marker>
+          <filter id="transitionGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
 
         {/* Floor Diagram Background */}
@@ -316,12 +323,12 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
                 {/* Transition indicator */}
                 {isTransition && (
                   <circle
-                    r={18}
+                    r={30}
                     fill="none"
-                    stroke="#8b5cf6"
-                    strokeWidth="2"
-                    strokeDasharray="4,4"
+                    stroke="#f97316"
+                    strokeWidth="3"
                     className="transition-indicator"
+                    filter="url(#transitionGlow)"
                     pointerEvents="none"
                   />
                 )}
