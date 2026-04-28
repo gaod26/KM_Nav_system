@@ -58,7 +58,7 @@ function HistoryPanel({ onClose, onSelectRoute }) {
 
   const handleRouteClick = (route) => {
     if (onSelectRoute) {
-      onSelectRoute(route.origin, route.destination, route.preference)
+      onSelectRoute(route.start_node, route.destination_node, route.preference)
     }
     onClose()
   }
@@ -104,17 +104,19 @@ function HistoryPanel({ onClose, onSelectRoute }) {
                 >
                   <div className="history-item-main">
                     <div className="history-route">
-                      <span className="route-origin">{item.origin}</span>
+                      <span className="route-origin">{item.start_node}</span>
                       <span className="route-arrow">→</span>
-                      <span className="route-destination">{item.destination}</span>
+                      <span className="route-destination">{item.destination_node}</span>
                     </div>
                     <div className="history-meta">
-                      <span className="meta-item">
-                        📏 {formatDistance(item.distance)}
-                      </span>
-                      {item.estimated_time && (
+                      {item.result?.total_distance != null && (
                         <span className="meta-item">
-                          ⏱️ {item.estimated_time.display}
+                          📏 {formatDistance(item.result.total_distance)}
+                        </span>
+                      )}
+                      {item.result?.estimated_time?.display && (
+                        <span className="meta-item">
+                          ⏱️ {item.result.estimated_time.display}
                         </span>
                       )}
                       {item.preference && item.preference !== 'no_preference' && (
@@ -125,7 +127,7 @@ function HistoryPanel({ onClose, onSelectRoute }) {
                     </div>
                   </div>
                   <div className="history-timestamp">
-                    {formatDate(item.timestamp)}
+                    {formatDate(item.created_at)}
                   </div>
                 </div>
               ))}

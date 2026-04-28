@@ -73,7 +73,8 @@ function App() {
       
       // Switch to the floor of the start location if needed
       if (route.floors && Object.keys(route.floors).length > 0) {
-        const firstFloor = parseInt(Object.keys(route.floors)[0])
+        const firstFloorKey = Object.keys(route.floors)[0]
+        const firstFloor = firstFloorKey === "B" ? "B" : parseInt(firstFloorKey)
         setSelectedFloor(firstFloor)
       }
     } catch (err) {

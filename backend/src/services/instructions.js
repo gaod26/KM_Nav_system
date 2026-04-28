@@ -1,6 +1,8 @@
 function nodeDisplay(node) {
   if (!node) return "Unknown location";
-  return node.label || node.node_id;
+  const label = node.label;
+  if (!label || label === "---" || label.trim() === "") return node.node_id;
+  return label;
 }
 
 function floorDisplayName(floor) {
@@ -68,7 +70,7 @@ function buildInstructionsForPath({ path, nodeById }) {
       const nextNode = nodeById.get(path[i + 1]);
       if (nextNode && node && node.floor !== nextNode.floor) {
         // Floor transition: emit one instruction and skip the landing node.
-        const cleanLabel = (node.label || node.node_id).replace(/\s+Floor\s+\d+$/i, "");
+        const cleanLabel = nodeDisplay(node).replace(/\s+Floor\s+\d+$/i, "");
         instructions.push(`Take ${cleanLabel} from ${floorDisplayName(node.floor)} to ${floorDisplayName(nextNode.floor)}`);
         i++; // skip the arriving stairs/elevator node on the next floor
       } else {

@@ -132,6 +132,7 @@ router.post("/", optionalAuth, (req, res) => {
   const responseBody = {
     floors: groupPathByFloor(result.path, globalNodeById),
     instructions,
+    total_distance: result.distance,
     estimated_time,
   };
 

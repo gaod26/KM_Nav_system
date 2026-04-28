@@ -34,6 +34,7 @@ export async function generateRoute(start, destination, preference = 'no_prefere
       floors: data.floors,
       directions: data.instructions || [],
       distance: data.total_distance,
+      estimated_time: data.estimated_time,
       path: pathArray // Path as flat array for map rendering
     }
   } catch (error) {
@@ -66,7 +67,7 @@ export async function getAllRooms() {
       nodes.forEach(node => {
         allRooms.push({
           id: node.node_id,
-          name: node.label,
+          name: (!node.label || node.label === "---" || node.label.trim() === "") ? node.node_id : node.label,
           floor: node.floor,
           type: node.type
         })
@@ -93,7 +94,7 @@ export async function searchLocations(query, floor = null) {
     const response = await api.get('/search', { params })
     return response.data.map(node => ({
       id: node.node_id,
-      name: node.label,
+      name: (!node.label || node.label === "---" || node.label.trim() === "") ? node.node_id : node.label,
       floor: node.floor,
       type: node.type
     }))
