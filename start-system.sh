@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "$0")"
 # Quick Start Script for Kirby-Manchester Navigation System
 # This script helps you start both backend and frontend servers
 
@@ -64,7 +65,7 @@ case $choice in
         echo "Location: http://localhost:8000"
         echo "Press Ctrl+C to stop"
         echo ""
-        node src/server.js
+        cd backend && node src/server.js
         ;;
     2)
         echo ""
@@ -72,7 +73,7 @@ case $choice in
         echo "Location: http://localhost:3000"
         echo "Press Ctrl+C to stop"
         echo ""
-        cd gabi_code && npm run dev
+        cd frontend && npm run dev
         ;;
     3)
         echo ""
@@ -86,14 +87,14 @@ case $choice in
         echo ""
         
         # Start backend in background
-        node src/server.js &
+        (cd backend && node src/server.js) &
         BACKEND_PID=$!
         
         # Wait a moment for backend to start
         sleep 2
         
         # Start frontend in background
-        cd gabi_code && npm run dev &
+        (cd frontend && npm run dev) &
         FRONTEND_PID=$!
         
         # Wait a moment for frontend to start
@@ -120,10 +121,10 @@ case $choice in
         echo -e "${GREEN}Installing Dependencies...${NC}"
         echo ""
         echo "Installing backend dependencies..."
-        npm install
+        (cd backend && npm install)
         echo ""
         echo "Installing frontend dependencies..."
-        cd gabi_code && npm install
+        (cd frontend && npm install)
         echo ""
         echo -e "${GREEN}✓ Dependencies installed${NC}"
         echo "Run this script again to start the servers"
