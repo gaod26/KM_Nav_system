@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Vite cache
+.vite/
+
+# Local environment files (contain secrets or local overrides — do NOT commit)
+.env.local
+.env.development
+.env.*.local
+
+# OS / Editor
+.DS_Store
+*.local
+
+# NOTE: .env.production IS intentionally committed so Cloudflare can read it.

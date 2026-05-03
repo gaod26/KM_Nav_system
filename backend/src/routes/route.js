@@ -5,6 +5,7 @@ const { buildInstructionsForPath } = require("../services/instructions");
 const { optionalAuth } = require("../middleware/auth");
 const { saveRoute } = require("../services/history");
 const { estimateTime } = require("../services/timeEstimate");
+const { pixelsToFeet } = require("../services/units");
 
 const router = express.Router();
 
@@ -132,7 +133,7 @@ router.post("/", optionalAuth, (req, res) => {
   const responseBody = {
     floors: groupPathByFloor(result.path, globalNodeById),
     instructions,
-    total_distance: result.distance,
+    total_distance: pixelsToFeet(result.distance), // Correction: SVG pixel units → feet (~3 px per ft)
     estimated_time,
   };
 

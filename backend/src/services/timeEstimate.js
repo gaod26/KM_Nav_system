@@ -1,5 +1,7 @@
 "use strict";
 
+const { pixelsToFeet } = require("./units");
+
 /**
  * estimateTime({ path, nodeById, adjacency })
  *
@@ -50,7 +52,7 @@ function estimateTime({ path, nodeById, adjacency }) {
       // else: unknown cross-floor type → add 0 (safe fallback)
     } else {
       // ── Same-floor segment: walking time = (distance / 250) * 60 ──
-      totalSeconds += (weight / 250) * 60;
+      totalSeconds += (pixelsToFeet(weight) / 250) * 60; // Correction: SVG pixel units → feet (~3 px per ft)
     }
   }
 

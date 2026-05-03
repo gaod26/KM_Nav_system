@@ -10,7 +10,31 @@ const historyRouter = require("./routes/history");
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.use(cors());
+// Allowed origins:
+//   - Local dev (Vite default port)
+//   - Any Cloudflare Pages deployment (*.pages.dev)
+//   - Any Cloudflare Workers deployment (*.workers.dev)
+const ALLOWED_ORIGIN_PATTERNS = [
+  /^http:\/\/localhost:(3000|5173)$/,
+  /^https:\/\/[^.]+\.pages\.dev$/,
+  /^https:\/\/[^.]+\.workers\.dev$/,
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. curl, Postman, server-to-server)
+      if (!origin) return callback(null, true);
+      if (ALLOWED_ORIGIN_PATTERNS.some((pattern) => pattern.test(origin))) {
+        return callback(null, true);
+      }
+      callback(new Error(`CORS: origin '${origin}' is not allowed`));
+    },
+    credentials: true, // Allow Authorization headers / cookies
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(
   express.json({

@@ -1,0 +1,14 @@
+cd KM_Nav_system
+
+# install backend dependencies
+cd backend
+npm install
+
+# go back to root, then install frontend
+cd ..
+cd frontend
+npm install
+
+# go back to root and run system
+cd ..
+bash start-system.sh
