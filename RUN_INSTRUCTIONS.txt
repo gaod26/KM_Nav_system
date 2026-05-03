@@ -1,14 +1,7 @@
-cd KM_Nav_system
+Just open this link in your browser:   https://km-nav-system.pages.dev
 
-# install backend dependencies
-cd backend
-npm install
-
-# go back to root, then install frontend
-cd ..
-cd frontend
-npm install
-
-# go back to root and run system
-cd ..
-bash start-system.sh
+A few things to know:
+• Frontend is hosted on Cloudflare Pages
+• Backend is on Render (free tier)
+• Heads up: if no one has used it for ~15 min, the backend goes to sleep, so the first request might take 30–60 seconds to wake up. After that it's fast.
+• Every time we push to the `main` branch, both frontend and backend will auto-redeploy in 2–3 minutes — no manual steps needed.
