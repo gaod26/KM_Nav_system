@@ -12,3 +12,4 @@ backend/data/
 *.sqlite-wal
 .vscode/
 .idea/
+frontend/src/data/_backup/

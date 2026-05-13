@@ -17,12 +17,24 @@
   {
     "from": "H001",
     "to": "R004A",
-    "distance": 164.2
+    "distance": 164.2,
+    "waypoints": [
+      [
+        238,
+        562
+      ]
+    ]
   },
   {
     "from": "H001",
     "to": "R002A",
-    "distance": 231.1
+    "distance": 231.1,
+    "waypoints": [
+      [
+        238,
+        586
+      ]
+    ]
   },
   {
     "from": "H003",
@@ -37,7 +49,13 @@
   {
     "from": "H002",
     "to": "R001",
-    "distance": 148.7
+    "distance": 148.7,
+    "waypoints": [
+      [
+        257,
+        250
+      ]
+    ]
   },
   {
     "from": "R001",
@@ -77,22 +95,46 @@
   {
     "from": "H006",
     "to": "S001",
-    "distance": 78.5
+    "distance": 78.5,
+    "waypoints": [
+      [
+        470,
+        229
+      ]
+    ]
   },
   {
     "from": "H006",
     "to": "O002",
-    "distance": 151.2
+    "distance": 151.2,
+    "waypoints": [
+      [
+        587,
+        289
+      ]
+    ]
   },
   {
     "from": "H006",
     "to": "M001",
-    "distance": 99.8
+    "distance": 99.8,
+    "waypoints": [
+      [
+        470,
+        361
+      ]
+    ]
   },
   {
     "from": "H006",
     "to": "W001",
-    "distance": 154.9
+    "distance": 154.9,
+    "waypoints": [
+      [
+        564,
+        289
+      ]
+    ]
   },
   {
     "from": "O002",
@@ -102,7 +144,13 @@
   {
     "from": "H004",
     "to": "R003",
-    "distance": 81.5
+    "distance": 81.5,
+    "waypoints": [
+      [
+        309,
+        562
+      ]
+    ]
   },
   {
     "from": "H004",
@@ -117,7 +165,13 @@
   {
     "from": "H005",
     "to": "R004",
-    "distance": 155.2
+    "distance": 155.2,
+    "waypoints": [
+      [
+        248,
+        626
+      ]
+    ]
   },
   {
     "from": "R004",
@@ -152,17 +206,35 @@
   {
     "from": "H007",
     "to": "R010",
-    "distance": 241.1
+    "distance": 241.1,
+    "waypoints": [
+      [
+        640,
+        296
+      ]
+    ]
   },
   {
     "from": "H007",
     "to": "O003",
-    "distance": 295.5
+    "distance": 295.5,
+    "waypoints": [
+      [
+        424,
+        438
+      ]
+    ]
   },
   {
     "from": "H007",
     "to": "E001",
-    "distance": 222.3
+    "distance": 222.3,
+    "waypoints": [
+      [
+        485,
+        438
+      ]
+    ]
   },
   {
     "from": "H007",
@@ -172,27 +244,57 @@
   {
     "from": "H007",
     "to": "R015",
-    "distance": 316.2
+    "distance": 316.2,
+    "waypoints": [
+      [
+        832,
+        438
+      ]
+    ]
   },
   {
     "from": "H008",
     "to": "R011",
-    "distance": 197.2
+    "distance": 197.2,
+    "waypoints": [
+      [
+        423,
+        575
+      ]
+    ]
   },
   {
     "from": "H008",
     "to": "R012",
-    "distance": 126.6
+    "distance": 126.6,
+    "waypoints": [
+      [
+        560,
+        651
+      ]
+    ]
   },
   {
     "from": "H008",
     "to": "R013",
-    "distance": 108
+    "distance": 108,
+    "waypoints": [
+      [
+        560,
+        651
+      ]
+    ]
   },
   {
     "from": "H008",
     "to": "R014",
-    "distance": 185.1
+    "distance": 185.1,
+    "waypoints": [
+      [
+        680,
+        575
+      ]
+    ]
   },
   {
     "from": "H008",
@@ -202,12 +304,24 @@
   {
     "from": "H009",
     "to": "S002",
-    "distance": 196.4
+    "distance": 196.4,
+    "waypoints": [
+      [
+        621,
+        587
+      ]
+    ]
   },
   {
     "from": "H010",
     "to": "S003",
-    "distance": 114.6
+    "distance": 114.6,
+    "waypoints": [
+      [
+        1272,
+        230
+      ]
+    ]
   },
   {
     "from": "H010",
@@ -217,7 +331,13 @@
   {
     "from": "H011",
     "to": "R018",
-    "distance": 230.7
+    "distance": 230.7,
+    "waypoints": [
+      [
+        1021,
+        306
+      ]
+    ]
   },
   {
     "from": "H011",
@@ -242,7 +362,13 @@
   {
     "from": "H015",
     "to": "R022",
-    "distance": 180.8
+    "distance": 180.8,
+    "waypoints": [
+      [
+        1461,
+        408
+      ]
+    ]
   },
   {
     "from": "H015",
@@ -252,7 +378,13 @@
   {
     "from": "H015",
     "to": "E002",
-    "distance": 127.4
+    "distance": 127.4,
+    "waypoints": [
+      [
+        1326,
+        500
+      ]
+    ]
   },
   {
     "from": "H015",
@@ -262,27 +394,57 @@
   {
     "from": "H015",
     "to": "R017",
-    "distance": 205.7
+    "distance": 205.7,
+    "waypoints": [
+      [
+        1168,
+        408
+      ]
+    ]
   },
   {
     "from": "H014",
     "to": "W002",
-    "distance": 103.5
+    "distance": 103.5,
+    "waypoints": [
+      [
+        1285,
+        272
+      ]
+    ]
   },
   {
     "from": "H014",
     "to": "S003",
-    "distance": 118
+    "distance": 118,
+    "waypoints": [
+      [
+        1272,
+        272
+      ]
+    ]
   },
   {
     "from": "H014",
     "to": "R020",
-    "distance": 181
+    "distance": 181,
+    "waypoints": [
+      [
+        1357,
+        135
+      ]
+    ]
   },
   {
     "from": "H014",
     "to": "R021",
-    "distance": 108.1
+    "distance": 108.1,
+    "waypoints": [
+      [
+        1441,
+        272
+      ]
+    ]
   },
   {
     "from": "R022",
@@ -297,32 +459,68 @@
   {
     "from": "H016",
     "to": "R022",
-    "distance": 224.3
+    "distance": 224.3,
+    "waypoints": [
+      [
+        1354,
+        444
+      ]
+    ]
   },
   {
     "from": "H016",
     "to": "R023",
-    "distance": 120.3
+    "distance": 120.3,
+    "waypoints": [
+      [
+        1441,
+        577
+      ]
+    ]
   },
   {
     "from": "H016",
     "to": "R024",
-    "distance": 222
+    "distance": 222,
+    "waypoints": [
+      [
+        1354,
+        746
+      ]
+    ]
   },
   {
     "from": "H016",
     "to": "S004",
-    "distance": 139.5
+    "distance": 139.5,
+    "waypoints": [
+      [
+        1268,
+        577
+      ]
+    ]
   },
   {
     "from": "H016",
     "to": "O006",
-    "distance": 77.6
+    "distance": 77.6,
+    "waypoints": [
+      [
+        1295,
+        577
+      ]
+    ]
   },
   {
     "from": "H012",
     "to": "M002",
-    "distance": 114.2
+    "distance": 114.2,
+    "waypoints": [
+      [
+        1211,
+        564
+      ]
+    ]
   },
   {
     "from": "H012",
@@ -332,7 +530,13 @@
   {
     "from": "H012",
     "to": "R016",
-    "distance": 270.3
+    "distance": 270.3,
+    "waypoints": [
+      [
+        1021,
+        482
+      ]
+    ]
   },
   {
     "from": "R016",
@@ -342,6 +546,12 @@
   {
     "from": "H013",
     "to": "S004",
-    "distance": 115.8
+    "distance": 115.8,
+    "waypoints": [
+      [
+        1268,
+        612
+      ]
+    ]
   }
 ]
