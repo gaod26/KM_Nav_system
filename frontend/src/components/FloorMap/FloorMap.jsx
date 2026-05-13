@@ -12,11 +12,13 @@ import combinedNodesRaw from '../../data/combined_nodes.json'
 import './FloorMap.css'
 
 function FloorMap({ floor, onFloorChange, routeData, startLocation, destination, onNodeClick }) {
+  const isDebug = new URLSearchParams(window.location.search).get('debug') === '1'
   const [positions] = useState(nodePositions)
   const [viewBox, setViewBox] = useState({ x: 0, y: 0, width: 1700, height: 900 })
   const [isPanning, setIsPanning] = useState(false)
   const [panStart, setPanStart] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
+  const [debugCoords, setDebugCoords] = useState({ x: 0, y: 0 })
   const svgRef = useRef(null)
 
   const nodeTypeMap = useMemo(() => {
@@ -46,6 +48,15 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
   }
 
   const handleMouseMove = (e) => {
+    if (isDebug && svgRef.current) {
+      const rect = svgRef.current.getBoundingClientRect()
+      const mouseX = e.clientX - rect.left
+      const mouseY = e.clientY - rect.top
+      const svgX = viewBox.x + (mouseX / rect.width) * viewBox.width
+      const svgY = viewBox.y + (mouseY / rect.height) * viewBox.height
+      setDebugCoords({ x: Math.round(svgX), y: Math.round(svgY) })
+    }
+
     if (!isPanning) return
 
     const dx = (e.clientX - panStart.x) / zoom
@@ -337,6 +348,12 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
           })}
         </g>
       </svg>
+
+      {isDebug && (
+        <div className="debug-coords-overlay">
+          x: {debugCoords.x}, y: {debugCoords.y}
+        </div>
+      )}
 
       <div className="map-legend">
         <div className="legend-item"><span className="legend-emoji">🏁</span> Start</div>
