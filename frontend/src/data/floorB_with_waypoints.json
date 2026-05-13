@@ -1,0 +1,186 @@
+[
+  {
+    "from": "SB01",
+    "to": "HB03",
+    "distance": 82.5,
+    "waypoints": [
+      [
+        472,
+        224
+      ]
+    ]
+  },
+  {
+    "from": "HB03",
+    "to": "OB02",
+    "distance": 181,
+    "waypoints": [
+      [
+        609,
+        288
+      ]
+    ]
+  },
+  {
+    "from": "HB03",
+    "to": "WB01",
+    "distance": 152.7,
+    "waypoints": [
+      [
+        563,
+        288
+      ]
+    ]
+  },
+  {
+    "from": "HB03",
+    "to": "MB01",
+    "distance": 98.8,
+    "waypoints": [
+      [
+        472,
+        361
+      ]
+    ]
+  },
+  {
+    "from": "HB03",
+    "to": "HB02",
+    "distance": 229.6
+  },
+  {
+    "from": "OB02",
+    "to": "OB01",
+    "distance": 82.5
+  },
+  {
+    "from": "HB02",
+    "to": "HB04",
+    "distance": 245.6
+  },
+  {
+    "from": "HB02",
+    "to": "RB01B",
+    "distance": 289.3,
+    "waypoints": [
+      [
+        375,
+        630
+      ]
+    ]
+  },
+  {
+    "from": "HB02",
+    "to": "RB02",
+    "distance": 379.7,
+    "waypoints": [
+      [
+        375,
+        700
+      ]
+    ]
+  },
+  {
+    "from": "HB02",
+    "to": "HB01",
+    "distance": 177.1
+  },
+  {
+    "from": "HB02",
+    "to": "RB03",
+    "distance": 127.5,
+    "waypoints": [
+      [
+        278,
+        435
+      ]
+    ]
+  },
+  {
+    "from": "HB02",
+    "to": "RB04",
+    "distance": 219.1,
+    "waypoints": [
+      [
+        375,
+        297
+      ]
+    ]
+  },
+  {
+    "from": "HB04",
+    "to": "OB03",
+    "distance": 199.5,
+    "waypoints": [
+      [
+        427,
+        441
+      ]
+    ]
+  },
+  {
+    "from": "HB04",
+    "to": "EB01",
+    "distance": 133.3,
+    "waypoints": [
+      [
+        489,
+        441
+      ]
+    ]
+  },
+  {
+    "from": "HB04",
+    "to": "SB02",
+    "distance": 104.9,
+    "waypoints": [
+      [
+        561,
+        512
+      ]
+    ]
+  },
+  {
+    "from": "HB04",
+    "to": "HB05",
+    "distance": 206.2
+  },
+  {
+    "from": "HB05",
+    "to": "SB02",
+    "distance": 135.5,
+    "waypoints": [
+      [
+        598,
+        512
+      ]
+    ]
+  },
+  {
+    "from": "HB05",
+    "to": "RB01A",
+    "distance": 170.2,
+    "waypoints": [
+      [
+        701,
+        630
+      ]
+    ]
+  },
+  {
+    "from": "HB01",
+    "to": "RB02",
+    "distance": 224.1,
+    "waypoints": [
+      [
+        278,
+        700
+      ]
+    ]
+  },
+  {
+    "from": "RB04",
+    "to": "RB04A",
+    "distance": 143.4
+  }
+]
