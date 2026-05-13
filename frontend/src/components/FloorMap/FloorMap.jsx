@@ -289,13 +289,15 @@ function FloorMap({ floor, onFloorChange, routeData, startLocation, destination,
             // Hide non-route edges when no route is active
             if (!isInRoute && !hasActiveRoute) return null
 
+            const pts = [fromPos, ...(edge.waypoints || []).map(([x, y]) => ({ x, y })), toPos]
+            const pointsStr = pts.map(p => `${p.x},${p.y}`).join(' ')
             return (
-              <line
+              <polyline
                 key={index}
-                x1={fromPos.x}
-                y1={fromPos.y}
-                x2={toPos.x}
-                y2={toPos.y}
+                points={pointsStr}
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 stroke={isInRoute ? '#15803d' : '#cbd5e1'}
                 strokeWidth={isInRoute ? 4 : 2}
                 strokeOpacity={isInRoute ? 1 : 0.1}
